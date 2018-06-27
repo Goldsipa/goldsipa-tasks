@@ -16,4 +16,9 @@ def have_same_items(list1, list2):
         -------
         bool
     """
-    return True
+    list2 = sorted(list2)           # сортируем второй массив
+
+    if(list1 == list2):            # проверяем одинаковость массивов
+        return True
+    else:
+        return False
