@@ -3,8 +3,14 @@
 
 class Emitter:
     def __init__(self):
-        """Создает экземпляр класса Emitter."""
-        pass
+        """Создает экземпляр класса Emitter.
+
+        Attributes
+        ----------
+        events : dict(str: [func])
+            словарь событий-обработчиков
+        """
+        self.events = {}            
 
     def on(self, event, handler):
         """ связывает обработчик handler с событием event
@@ -16,7 +22,10 @@ class Emitter:
         handler : func
             обработчик
         """
-        pass
+        if event not in self.events.keys():            # проверка на наличие события в словаре
+            self.events[event] = []
+        if handler not in self.events[event]:           # проверка на наличие обработчика у события
+            self.events[event].append(handler)
 
     def emit(self, event, data):
         """ Генерирует событие event -- вызывает все связанные с ним
@@ -29,4 +38,6 @@ class Emitter:
         data
             данные, которые необходимо передать обработчикам
         """
-        pass
+        if event in self.events.keys():
+            for handler in self.events[event]:          # вызов всех связанных с событием обработчиков,
+                handler(data)
